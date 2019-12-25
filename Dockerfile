@@ -10,5 +10,6 @@ RUN curl -o spigot-1.15.1.jar https://cdn.getbukkit.org/spigot/spigot-1.15.1.jar
 RUN mkdir /root/.minecraft && echo "eula=true" > /app/eula.txt
 COPY server.properties /app/server.properties
 COPY run.sh /app/run.sh
+RUN chmod -R 777 /app
 RUN mkdir -p /root/.config/rclone/
 CMD ["bash", "run.sh"]
