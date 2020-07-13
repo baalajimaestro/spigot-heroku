@@ -14,4 +14,4 @@ function quit()
 trap quit SIGINT SIGTERM SIGKILL
 rclone copy -P remote:minecraft /app
 cd /app
-java -Xms256m -Xmx256m -jar spigot-1.15.1.jar
+java -Xms512M -Xmx512M -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=100 -XX:+DisableExplicitGC -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:G1MixedGCLiveThresholdPercent=35 -XX:+AlwaysPreTouch -XX:+ParallelRefProcEnabled -jar server.jar

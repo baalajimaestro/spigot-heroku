@@ -1,12 +1,12 @@
-FROM opensuse/tumbleweed
+FROM fedora:32
 
-RUN zypper refresh && zypper -n update
-RUN zypper -n in java-13-openjdk sudo curl wget unzip
+COPY adoptopenjdk.repo /etc/yum.repos.d/adoptopenjdk.repo
+RUN dnf update && dnf install sudo curl wget unzip adoptopenjdk-11-openj9
 RUN curl -o /install.sh https://rclone.org/install.sh
 RUN yes | bash /install.sh
 RUN rm -rf /install.sh && mkdir /app
 WORKDIR /app
-RUN curl -o spigot-1.15.1.jar https://cdn.getbukkit.org/spigot/spigot-1.15.1.jar
+RUN curl -o server.jar https://papermc.io/api/v1/paper/1.16.1/90/download
 RUN mkdir /root/.minecraft && echo "eula=true" > /app/eula.txt
 COPY server.properties /app/server.properties
 COPY run.sh /app/run.sh
